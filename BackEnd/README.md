@@ -29,12 +29,15 @@ cd <NOMBRE_DEL_REPOSITORIO>
 cd BackEnd/
 ```
 
-### 2. Correr comando docker en terminal
+### 2. Renonmbrar el archivo ```.env-example``` a ```.env```
+
+
+### 3. Correr comando docker en terminal
 ```
 docker-compose up -d
 ```
 
-### 3. Correr comando para desarrollo
+### 4. Correr comando para desarrollo
 ```
 npm run dev
 ```
