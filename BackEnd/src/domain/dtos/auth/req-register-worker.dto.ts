@@ -1,4 +1,5 @@
 import { Validators } from '../../../config/validators';
+import { WorkerPosition } from '../../utils/worker-position.enum';
 
 export class RegisterWorkerDto {
   private constructor(
@@ -8,7 +9,7 @@ export class RegisterWorkerDto {
     public email: string,
     public birthdate: string,
     public dni: string,
-    public position: string,
+    public position: WorkerPosition,
     public salary: number,
     public start_date: string,
     public phone: string
@@ -27,7 +28,7 @@ export class RegisterWorkerDto {
       position,
       salary,
       start_date,
-      phone
+      phone,
     } = object;
 
     const errors: { [key: string]: string } = {};
@@ -39,7 +40,13 @@ export class RegisterWorkerDto {
     if (email && !Validators.email.test(email)) errors.email = 'Invalid email';
     if (!birthdate) errors.birthdate = 'Birthdate is required';
     if (!dni) errors.dni = 'DNI is required';
-    if (!position) errors.position = 'Position is required';
+    if (!position) {
+      errors.position = 'Position is required';
+    } else if (!Object.values(WorkerPosition).includes(position)) {
+      errors.position = `Invalid position. Valid positions are: ${Object.values(
+        WorkerPosition
+      ).join(', ')}`;
+    }
     if (!salary) errors.salary = 'Salary is required';
     if (!start_date) errors.start_date = 'Start date is required';
     if (!phone) errors.phone = 'Phone is required';
@@ -49,8 +56,7 @@ export class RegisterWorkerDto {
     }
 
     const birthdateISO = new Date(birthdate).toISOString().split('T')[0];
-
-    console.log(birthdateISO);
+    const startDateISO = new Date(start_date).toISOString().split('T')[0];
 
     return [
       undefined,
@@ -63,7 +69,7 @@ export class RegisterWorkerDto {
         dni,
         position,
         salary,
-        start_date,
+        startDateISO,
         phone
       ),
     ];
