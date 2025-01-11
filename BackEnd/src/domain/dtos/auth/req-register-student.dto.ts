@@ -1,3 +1,5 @@
+import { Validators } from "../../../config/validators";
+
 export class RegisterStudentDto {
   private constructor(
     public name: string,
@@ -32,6 +34,7 @@ export class RegisterStudentDto {
     if (!lastName) errors.lastName = 'Last name is required';
     if (!password) errors.password = 'Password is required';
     if (!email) errors.email = 'Email is required';
+    if (email && !Validators.email.test(email)) errors.email = 'Invalid email';
     if (!birthdate) errors.birthdat = 'Birthdate is required';
     if (!dni) errors.dni = 'DNI is required';
     if (!proxy) errors.proxy = 'Proxy is required';
