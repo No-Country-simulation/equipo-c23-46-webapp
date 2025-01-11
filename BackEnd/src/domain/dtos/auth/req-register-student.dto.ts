@@ -6,7 +6,7 @@ export class RegisterStudentDto {
     public lastName: string,
     public password: string,
     public email: string,
-    public birthdate: Date,
+    public birthdate: string,
     public dni: string,
     public proxy: string,
     public phone_proxy: string,
@@ -35,7 +35,7 @@ export class RegisterStudentDto {
     if (!password) errors.password = 'Password is required';
     if (!email) errors.email = 'Email is required';
     if (email && !Validators.email.test(email)) errors.email = 'Invalid email';
-    if (!birthdate) errors.birthdat = 'Birthdate is required';
+    if (!birthdate) errors.birthdate = 'Birthdate is required';
     if (!dni) errors.dni = 'DNI is required';
     if (!proxy) errors.proxy = 'Proxy is required';
     if (!phone_proxy) errors.phone_proxy = 'Phone proxy is required';
@@ -45,6 +45,10 @@ export class RegisterStudentDto {
       return [errors];
     }
 
+    const birthdateISO = new Date(birthdate).toISOString().split('T')[0];
+
+    console.log(birthdateISO);
+
     return [
       undefined,
       new RegisterStudentDto(
@@ -52,7 +56,7 @@ export class RegisterStudentDto {
         lastName,
         password,
         email,
-        birthdate,
+        birthdateISO,
         dni,
         proxy,
         phone_proxy,
