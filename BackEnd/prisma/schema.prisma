@@ -22,9 +22,6 @@ model User {
   birthdate       DateTime
   age             Int
   dni             String   @unique
-  apoderado       String
-  phone_apoderado String?
-  dni_apoderado   String?
   isActived       Boolean  @default(true)
 
   //relacion uno a uno
