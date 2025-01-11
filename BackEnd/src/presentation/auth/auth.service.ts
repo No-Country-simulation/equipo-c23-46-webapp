@@ -1,7 +1,12 @@
 import { Role } from '@prisma/client';
 import { BcryptAdapter } from '../../config';
 import { prisma } from '../../data/prisma/prisma-db';
-import { CustomError, RegisterStudentDto, StudentEntity } from '../../domain';
+import {
+  CustomError,
+  RegisterStudentDto,
+  StudentEntity,
+  WorkerEntity,
+} from '../../domain';
 import { RegisterWorkerDto } from '../../domain/dtos/auth/req-register-worker.dto';
 
 type HashFunction = (password: string) => string;
@@ -124,7 +129,7 @@ export class AuthService {
         include: { Worker: true },
       });
 
-      return { worker: user.Worker };
+      return { worker: WorkerEntity.fromJson(user) };
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;

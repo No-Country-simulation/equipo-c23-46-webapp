@@ -11,6 +11,7 @@ export class AuthRoutes {
     const controller = new AuthController(authService);
 
     router.post('/registerStudent', controller.registerStudent);
+    router.post('/registerWorker', controller.registerWorker);
 
     return router;
   }
