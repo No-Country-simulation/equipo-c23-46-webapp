@@ -1,4 +1,5 @@
 import { envs } from "./config";
+import { PrismaDatabase } from "./data/prisma/prisma-db";
 import { AppRoutes } from "./presentation/routes";
 import { Server } from "./presentation/server";
 
@@ -9,7 +10,7 @@ import { Server } from "./presentation/server";
 
 async function main() {
 
-  // await PrismaDatabase.connect();
+  await PrismaDatabase.connect();
 
   new Server({
     port: envs.port,
