@@ -1,4 +1,3 @@
-
 import { Role } from '@prisma/client';
 import { BcryptAdapter } from '../../config';
 import { prisma } from '../../data/prisma/prisma-db';
@@ -44,7 +43,7 @@ export class AuthService {
       const hashPassword = this.hashPassword(password);
       const user = await prisma.user.create({
         data: {
-          role : Role.USER,
+          role: Role.USER,
           birthdate: new Date(birthdate).toISOString(),
           dni,
           age,
@@ -63,10 +62,7 @@ export class AuthService {
         include: { Student: true },
       });
 
-      console.log(user);
-
-
-      return {student: StudentEntity.fromJson(user)};
+      return { student: StudentEntity.fromJson(user) };
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
