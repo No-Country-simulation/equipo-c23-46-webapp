@@ -1,10 +1,11 @@
-import { Role } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 import { BcryptAdapter, JwtAdapter } from '../../config';
 import { prisma } from '../../data/prisma/prisma-db';
 import {
   CustomError,
   RegisterStudentDto,
   StudentEntity,
+  UpdateCurrentUserPasswordDto,
   WorkerEntity,
 } from '../../domain';
 import { RegisterWorkerDto } from '../../domain/dtos/auth/req-register-worker.dto';
@@ -178,5 +179,33 @@ export class AuthService {
       throw CustomError.internalServer('Error generating token')
     }
     return token
+  }
+
+  public async updateCurrentUserPassword(UpdateCurrentUserPasswordDto: UpdateCurrentUserPasswordDto, user: User) {
+    const { currentPassword, password } = UpdateCurrentUserPasswordDto;
+
+    try {
+      // const existsUser = await UserModel.findById(user.id)
+
+      const isMatchPassword = this.comparePassword(currentPassword, user.password)
+      if (!isMatchPassword) {
+        throw CustomError.badRequest('El password actual no coincide')
+      }
+
+      const hashNewPassword = this.hashPassword(password)
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          password: hashNewPassword
+        }
+      })
+
+      return 'Password actualizado correctamente'
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
   }
 }
