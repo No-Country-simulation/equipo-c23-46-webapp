@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  WORKER
+  STUDENT
+}
+
 model User {
   id              String   @id @default(uuid())
   name            String
@@ -22,10 +27,8 @@ model User {
   birthdate       DateTime
   age             Int
   dni             String   @unique
-  apoderado       String
-  phone_apoderado String?
-  dni_apoderado   String?
   isActived       Boolean  @default(true)
+  role            Role
 
   //relacion uno a uno
   Student Student?
@@ -41,7 +44,7 @@ model User {
 model Student {
   id          String   @id @default(uuid())
   proxy       String
-  phone_proxy String[]
+  phone_proxy String
   dni_proxy   String
 
   //relacion uno a uno
