@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {
   CustomError,
+  ForgotPasswordDto,
   LoginUserDto,
   RegisterStudentDto,
   RegisterWorkerDto,
@@ -72,4 +73,16 @@ export class AuthController {
       .then((user) => res.json(user))
       .catch((error) => this.handleError(error, res));
   };
+
+  forgotPassword = (req: Request, res: Response) => {
+    const [error, forgotPasswordDto] = ForgotPasswordDto.create(req.body)
+    if (error) {
+      res.status(400).json({ error });
+      return;
+    }
+
+    this.authService.forgotPassword(forgotPasswordDto!)
+      .then((user) => res.json(user))
+      .catch((error) => this.handleError(error, res));
+  }
 }

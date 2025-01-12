@@ -1,4 +1,4 @@
-function generateRandomKey(length: number = 8): string {
+export function generateRandomKey(length: number = 8): string {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
   const charactersLength = characters.length;

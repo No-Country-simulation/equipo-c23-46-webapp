@@ -14,4 +14,7 @@ export * from './errors/custom.error';
 
 
 
-export * from './utils/worker-position.enum';
+export * from './utils/enum/worker-position.enum';
+
+export * from './utils/interface/email';
+export * from './utils/generate-random-key';

@@ -6,13 +6,21 @@ import * as joi from 'joi'
 interface EnvVars {
   PORT: number
   DATABASE_URL: string
-  JWT_SECRET: string
+  JWT_SECRET: string,
+  SEND_EMAIL: boolean,
+  MAILER_SERVICE: string,
+  MAILER_EMAIL: string,
+  MAILER_SECRET_KEY: string,
 }
 
 const envsSchema = joi.object({
   PORT: joi.number().required(),
   DATABASE_URL: joi.string().uri().required(),
-  JWT_SECRET: joi.string().required()
+  JWT_SECRET: joi.string().required(),
+  SEND_EMAIL: joi.boolean().required(),
+  MAILER_SERVICE: joi.string().required(),
+  MAILER_EMAIL: joi.string().required(),
+  MAILER_SECRET_KEY: joi.string().required(),
 })
 .unknown(true);
 
@@ -27,6 +35,10 @@ const envVars: EnvVars = value;
 export const envs = {
   port: envVars.PORT,
   jwtSecret: envVars.JWT_SECRET,
+  sendEmail: envVars.SEND_EMAIL,
+  mailerService: envVars.MAILER_SERVICE,
+  mailerEmail: envVars.MAILER_EMAIL,
+  mailerSecretKey: envVars.MAILER_SECRET_KEY,
 }
 
 

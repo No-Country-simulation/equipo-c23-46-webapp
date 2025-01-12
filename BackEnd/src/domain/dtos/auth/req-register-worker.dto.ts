@@ -1,5 +1,5 @@
 import { Validators } from '../../../config/validators';
-import { WorkerPosition } from '../../utils/worker-position.enum';
+import { WorkerPosition } from '../../utils/enum/worker-position.enum';
 
 export class RegisterWorkerDto {
   private constructor(
