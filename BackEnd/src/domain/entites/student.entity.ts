@@ -1,4 +1,5 @@
 import { CustomError } from '../errors/custom.error';
+import { ProxyEntity } from './proxy.entity';
 
 export class StudentEntity {
   constructor(
@@ -10,9 +11,7 @@ export class StudentEntity {
     public birthdate: Date,
     public age: number,
     public dni: string,
-    public proxy: string,
-    public phone_proxy: string,
-    public dni_proxy: string,
+    public proxy: ProxyEntity,
     public createdAt: Date
   ) {}
 
@@ -26,7 +25,7 @@ export class StudentEntity {
       birthdate,
       age,
       dni,
-      Student: { proxy, phone_proxy, dni_proxy },
+      Student,
       createdAt,
     } = object;
 
@@ -37,9 +36,6 @@ export class StudentEntity {
     if (!email) throw CustomError.badRequest('Missing Email');
     if (!birthdate) throw CustomError.badRequest('Missing Birthdate');
     if (!dni) throw CustomError.badRequest('Missing DNI');
-    if (!proxy) throw CustomError.badRequest('Missing Proxy');
-    if (!phone_proxy) throw CustomError.badRequest('Missing Phone Proxy');
-    if (!dni_proxy) throw CustomError.badRequest('Missing DNI Proxy');
     if (!createdAt) throw CustomError.badRequest('Missing Created At');
     if (!age) throw CustomError.badRequest('Missing Age');
 
@@ -52,9 +48,7 @@ export class StudentEntity {
       birthdate,
       age,
       dni,
-      proxy,
-      phone_proxy,
-      dni_proxy,
+      ProxyEntity.fromJson(Student),
       createdAt
     );
   }
