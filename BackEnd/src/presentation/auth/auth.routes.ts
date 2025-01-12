@@ -12,6 +12,7 @@ export class AuthRoutes {
 
     router.post('/registerStudent', controller.registerStudent);
     router.post('/registerWorker', controller.registerWorker);
+    router.post('/login', controller.loginUser);
 
     return router;
   }

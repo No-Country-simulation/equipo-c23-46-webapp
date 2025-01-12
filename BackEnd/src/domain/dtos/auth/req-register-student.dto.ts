@@ -47,8 +47,6 @@ export class RegisterStudentDto {
 
     const birthdateISO = new Date(birthdate).toISOString().split('T')[0];
 
-    console.log(birthdateISO);
-
     return [
       undefined,
       new RegisterStudentDto(
