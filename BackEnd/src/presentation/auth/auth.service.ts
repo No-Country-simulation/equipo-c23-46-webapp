@@ -182,17 +182,17 @@ export class AuthService {
   }
 
   public async updateCurrentUserPassword(UpdateCurrentUserPasswordDto: UpdateCurrentUserPasswordDto, user: User) {
-    const { currentPassword, password } = UpdateCurrentUserPasswordDto;
+    const { currentPassword, newPassword } = UpdateCurrentUserPasswordDto;
 
     try {
       // const existsUser = await UserModel.findById(user.id)
 
       const isMatchPassword = this.comparePassword(currentPassword, user.password)
       if (!isMatchPassword) {
-        throw CustomError.badRequest('El password actual no coincide')
+        throw CustomError.badRequest('Current password does not match')
       }
 
-      const hashNewPassword = this.hashPassword(password)
+      const hashNewPassword = this.hashPassword(newPassword)
       await prisma.user.update({
         where: { id: user.id },
         data: {
@@ -200,7 +200,7 @@ export class AuthService {
         }
       })
 
-      return 'Password actualizado correctamente'
+      return 'Password updated correctly'
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;

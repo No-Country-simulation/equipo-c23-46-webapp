@@ -1,18 +1,23 @@
 export class UpdateCurrentUserPasswordDto {
   private constructor(
     public currentPassword: string,
-    public password: string,
+    public newPassword: string,
   ) { }
 
-  static create(object: { [key: string]: any }): [string?, UpdateCurrentUserPasswordDto?] {
-    const { currentPassword, password, passwordConfirmation } = object;
+  static create(object: { [key: string]: any }): [{ [key: string]: string }?,UpdateCurrentUserPasswordDto?] {
+    const { currentPassword, newPassword, passwordConfirmation } = object;
 
-    if (!currentPassword) return ['El password actual es requerido'];
-    if (!password) return ['El nuevo password es requerido'];
-    if (password.length < 8) return ['El nuevo password debe tener al menos 8 caracteres'];
-    if (!passwordConfirmation) return ['La confirmación del password es requerida'];
-    if (password !== passwordConfirmation) return ['Los passwords no coinciden'];
+    const errors: { [key: string]: string } = {};
 
-    return [undefined, new UpdateCurrentUserPasswordDto(currentPassword, password)];
+    if(!currentPassword) errors.currentPassword = 'Current password is required';
+    if(!newPassword) errors.newPassword = 'newPassword is required';
+    if(!passwordConfirmation) errors.passwordConfirmation = 'Password confirmation is required';
+    if(newPassword && passwordConfirmation && newPassword !== passwordConfirmation) errors.passwordConfirmation = 'Passwords do not match';
+
+    if (Object.keys(errors).length > 0) {
+      return [errors];
+    }
+
+    return [undefined, new UpdateCurrentUserPasswordDto(currentPassword, newPassword)];
   }
 }
