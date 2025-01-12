@@ -1,5 +1,5 @@
 import { CustomError } from '../errors/custom.error';
-import { WorkerPosition } from '../utils/worker-position.enum';
+import { WorkerPosition } from '../utils/enum/worker-position.enum';
 
 export class WorkerEntity {
   constructor(
