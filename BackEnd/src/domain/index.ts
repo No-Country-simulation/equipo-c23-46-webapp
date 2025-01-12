@@ -2,6 +2,7 @@ export * from './dtos/auth/req-register-student.dto';
 export * from './dtos/auth/req-register-worker.dto';
 export * from './dtos/auth/req-login.dto';
 export * from './dtos/user/update-current-user-password.dto';
+export * from './dtos/user/forgot-password.dto';
 
 
 export * from './entites/student.entity';
