@@ -1,15 +1,17 @@
+import { Route, Routes } from 'react-router'
 import './App.css'
+import Login from './pages/login.page'
+import NewPasword from './pages/newpassword.page'
+import Recovery from './pages/recovery.page'
 
 function App() {
   return (
     <main className='main-app'>
-      <form className='flex flex-col m-auto max-w-xl '>
-        <label htmlFor='email'>Email</label>
-        <input type='text' />
-        <label htmlFor='password'>Contraseña</label>
-        <input type='text' />
-        <button type='submit'>Enviar</button>
-      </form>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path='/newpassword' element={<NewPasword />} />
+        <Route path='/recovery' element={<Recovery />} />
+      </Routes>
     </main>
   )
 }

@@ -3,7 +3,7 @@ import { InitialStateUserProps } from '../../types/User'
 import { fetchLoginUser } from '../actions/user.actions'
 
 const initialState: InitialStateUserProps = {
-  user: {
+  userData: {
     id: '',
     name: '',
     lastName: '',
@@ -28,16 +28,16 @@ const userSlice = createSlice({
     // ejemplos para cambios sincronos, Aqui se usa "PayloadAction<>"
     patchUser: (
       state,
-      action: PayloadAction<InitialStateUserProps['user']>
+      action: PayloadAction<InitialStateUserProps['userData']>
     ) => {
       const { name, email } = action.payload
-      const { user } = state
-      user.name = name
-      user.email = email
+      const { userData } = state
+      userData.name = name
+      userData.email = email
     },
     changeEmail: (state, action: PayloadAction<string>) => {
-      const { user } = state
-      user.email = action.payload
+      const { userData } = state
+      userData.email = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -47,9 +47,9 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchLoginUser.fulfilled,
-        (state, action: PayloadAction<InitialStateUserProps['user']>) => {
+        (state, action: PayloadAction<InitialStateUserProps['userData']>) => {
           state.loading = false
-          state.user = { ...action.payload }
+          state.userData = { ...action.payload }
         }
       )
       .addCase(fetchLoginUser.rejected, (state, action) => {
