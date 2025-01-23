@@ -6,3 +6,5 @@ export * from './adapters/jwt'
 
 export * from './swagger/swagger'
 
+export * from './adapters/uuid'
+

@@ -18,3 +18,6 @@ export * from './utils/enum/worker-position.enum';
 
 export * from './utils/interface/email';
 export * from './utils/generate-random-key';
+
+export * from './dtos/shared/pagination.dto'
+export * from './dtos/shared/get-by-id.dto'
