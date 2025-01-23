@@ -1,4 +1,4 @@
-import { Course } from './../../../node_modules/.prisma/client/index.d';
+
 import { Role } from '@prisma/client';
 import { prisma } from '../../data/prisma/prisma-db';
 import {
@@ -34,10 +34,12 @@ export class TeacherService {
       }),
     ]);
 
+    const totalPages = Math.ceil(total / limit);
+
     return {
-      page,
-      limit,
       total,
+      page,
+      totalPages,
       next:
         total - page * limit > 0
           ? `/api/teachers?page=${page + 1}&limit=${limit}`

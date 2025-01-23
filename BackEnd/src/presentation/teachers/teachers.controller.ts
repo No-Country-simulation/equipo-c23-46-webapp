@@ -16,8 +16,6 @@ export class TeacherController {
   };
 
   findAllTeachers = (req: Request, res: Response) => {
-    console.log(req.query);
-
     const { page = 1, limit = 10 } = req.query;
 
     const [error, paginationDto] = PaginationDto.create(+page, +limit!);
