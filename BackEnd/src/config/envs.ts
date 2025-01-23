@@ -11,6 +11,7 @@ interface EnvVars {
   MAILER_SERVICE: string,
   MAILER_EMAIL: string,
   MAILER_SECRET_KEY: string,
+  WEBSERVICE_URL: string
 }
 
 const envsSchema = joi.object({
@@ -21,6 +22,7 @@ const envsSchema = joi.object({
   MAILER_SERVICE: joi.string().required(),
   MAILER_EMAIL: joi.string().required(),
   MAILER_SECRET_KEY: joi.string().required(),
+  WEBSERVICE_URL: joi.string().uri().required()
 })
 .unknown(true);
 
@@ -39,6 +41,7 @@ export const envs = {
   mailerService: envVars.MAILER_SERVICE,
   mailerEmail: envVars.MAILER_EMAIL,
   mailerSecretKey: envVars.MAILER_SECRET_KEY,
+  webserviceUrl: envVars.WEBSERVICE_URL,
 }
 
 
