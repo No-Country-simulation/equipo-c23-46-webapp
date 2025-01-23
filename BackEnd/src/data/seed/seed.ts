@@ -187,6 +187,8 @@ async function insertNotes(){
           studentId: student.id,
           gradeCourseId: gradeCourse.id,
           note: randomNumber(20),
+          competence: 'evaluacion 1',
+          capacity: 'capacidad 1',
         },
       });
     });
