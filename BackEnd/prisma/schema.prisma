@@ -19,16 +19,16 @@ enum Role {
 }
 
 model User {
-  id              String   @id @default(uuid())
-  name            String
-  lastName        String
-  password        String
-  email           String   @unique
-  birthdate       DateTime
-  age             Int
-  dni             String   @unique
-  isActived       Boolean  @default(true)
-  role            Role
+  id        String   @id @default(uuid())
+  name      String
+  lastName  String
+  password  String
+  email     String   @unique
+  birthdate DateTime
+  age       Int
+  dni       String   @unique
+  isActived Boolean  @default(true)
+  role      Role
 
   //relacion uno a uno
   Student Student?
@@ -42,7 +42,7 @@ model User {
 }
 
 model Student {
-  id          String   @id @default(uuid())
+  id          String @id @default(uuid())
   proxy       String
   phone_proxy String
   dni_proxy   String
@@ -50,6 +50,11 @@ model Student {
   //relacion uno a uno
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
+
+  grade   Grade? @relation(fields: [gradeId], references: [id])
+  gradeId String
+
+  notas notas[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -65,6 +70,66 @@ model Worker {
   //relacion uno a uno
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Grade       Grade[]
+  GradeCourse GradeCourse[]
+}
+
+model Grade {
+  id          String @id @default(uuid())
+  school_year Int
+  grade       String
+  section     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tutor   Worker? @relation(fields: [tutorId], references: [id])
+  tutorId String
+
+  Student     Student[]
+  GradeCourse GradeCourse[]
+}
+
+model GradeCourse {
+  id String @id @default(uuid())
+
+  grade   Grade  @relation(fields: [gradeId], references: [id])
+  gradeId String
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String
+
+  teacher   Worker @relation(fields: [teacherId], references: [id])
+  teacherId String
+
+  notas     notas[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  id   String @id @default(uuid())
+  name String
+
+  GradeCourse GradeCourse[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model notas {
+  id         String  @id @default(uuid())
+  capacity   String?
+  competence String?
+  note       Int
+
+  gradeCourse   GradeCourse @relation(fields: [gradeCourseId], references: [id])
+  gradeCourseId String
+
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

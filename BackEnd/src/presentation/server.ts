@@ -2,6 +2,8 @@ import express, { Router } from 'express'
 import colors from 'colors'
 import cors from 'cors'
 import { corsConfig } from '../config/cors';
+import { setupSwagger } from '../config';
+
 
 interface Options {
   port?: number;
@@ -26,6 +28,9 @@ export class Server {
     this.app.use(express.urlencoded({ extended: true }));
 
     this.app.use(cors(corsConfig));
+
+    // configurar Swagger
+    setupSwagger(this.app);
 
     //rutas
     this.app.use(this.routes);

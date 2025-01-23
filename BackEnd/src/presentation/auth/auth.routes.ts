@@ -20,6 +20,24 @@ export class AuthRoutes {
 
     const controller = new AuthController(authService);
 
+    /**
+     * @swagger
+     * /auth/registerStudent:
+     *   post:
+     *     summary: Register a new student
+     *     tags: [Auth]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/RegisterStudentDto'
+     *     responses:
+     *       200:
+     *         description: Student registered successfully
+     *       400:
+     *         description: Bad request
+     */
     router.post('/registerStudent', controller.registerStudent);
     router.post('/registerWorker', controller.registerWorker);
     router.post('/login', controller.loginUser);

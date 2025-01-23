@@ -37,7 +37,12 @@ cd BackEnd/
 docker-compose up -d
 ```
 
-### 4. Correr comando para desarrollo
+### 4. Correr comando para poblar la base de datos
+```
+npm run seed
+```
+
+### 5. Correr comando para desarrollo
 ```
 npm run dev
 ```
